@@ -1,0 +1,30 @@
+version: "3.5"
+services:
+  app:
+    image: nginx:1.19.2-alpine
+    restart: always
+    networks:
+      - traefik-public
+      - default
+    ports:
+      - 80:80
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.services.letscode-service.loadbalancer.server.port=80"
+
+      - traefik.http.routers.letscode-http.rule=Host(`letscode.io`)
+      - traefik.http.routers.letscode-http.entrypoints=http
+      - traefik.http.routers.letscode-http.middlewares=https-redirect
+      - traefik.http.routers.letscode-http.service=letscode-service
+
+      - traefik.http.routers.letscode-https.rule=Host(`letscode.io`)
+      - traefik.http.routers.letscode-https.entrypoints=https
+      - traefik.http.routers.letscode-https.tls=true
+      - traefik.http.routers.letscode-https.tls.certresolver=le
+
+networks:
+  traefik-public:
+    external: true

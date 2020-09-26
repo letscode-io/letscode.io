@@ -1,0 +1,29 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@master
+      - name: Connect by ssh and run new build
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/deploy/applications/ideal_world_cup
+            git fetch --all
+            git reset --hard origin/master
+            export $(egrep -v '^#' .env.production | xargs)
+            setuserid
+            docker-compose -f docker-compose.prod.yml up -d
