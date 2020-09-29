@@ -31,8 +31,8 @@ jobs:
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           format: HTML
           message: |
-            💻 LetsCode.io: <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
-            ✅ Deployment has been finished successfully
+            <b>LetsCode.io:</b> <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
+            Deployment has been finished successfully ✅
         - name: Notify telegram group about a failed deployment
           if: ${{ failure() }}
           uses: appleboy/telegram-action@master
@@ -41,5 +41,5 @@ jobs:
             token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
             format: HTML
             message: |
-              💻 LetsCode.io: <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
-              💩 Deployment has been failed
+              <b>LetsCode.io:</b> <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
+              Deployment has been failed 💩
