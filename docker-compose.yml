@@ -5,15 +5,12 @@ services:
     restart: always
     networks:
       - traefik-public
-      - default
-    ports:
-      - 3015:80
     volumes:
       - ./:/usr/share/nginx/html:ro
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
-      - "traefik.http.services.letscode-service.loadbalancer.server.port=3015"
+      - "traefik.http.services.letscode-service.loadbalancer.server.port=80"
 
       - traefik.http.routers.letscode-http.rule=Host(`letscode.io`)
       - traefik.http.routers.letscode-http.entrypoints=http
