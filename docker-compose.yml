@@ -1,6 +1,6 @@
 version: "3.5"
 services:
-  app:
+  letscode_home:
     image: nginx:1.19.2-alpine
     restart: always
     networks:

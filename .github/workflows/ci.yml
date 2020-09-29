@@ -22,7 +22,7 @@ jobs:
             cd /home/deploy/applications/letscode
             git fetch --all
             git reset --hard origin/master
-            docker-compose -f docker-compose.yml up -d
+            docker-compose up -d
       - name: Notify telegram group about a successful deployment
         if: ${{ success() }}
         uses: appleboy/telegram-action@master
