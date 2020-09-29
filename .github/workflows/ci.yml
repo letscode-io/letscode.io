@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
-      - name: Checkout current branch
-        uses: actions/checkout@master
       - name: Connect by ssh and run new build
         uses: appleboy/ssh-action@master
         with:
@@ -21,9 +19,27 @@ jobs:
           passphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/deploy/applications/ideal_world_cup
+            cd /home/deploy/applications/letscode
             git fetch --all
             git reset --hard origin/master
-            export $(egrep -v '^#' .env.production | xargs)
-            setuserid
-            docker-compose -f docker-compose.prod.yml up -d
+            docker-compose -f docker-compose.yml up -d
+      - name: Notify telegram group about a successful deployment
+        if: ${{ success() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_GROUP_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          format: HTML
+          message: |
+            💻 LetsCode.io: <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
+            ✅ Deployment has been finished successfully
+        - name: Notify telegram group about a failed deployment
+          if: ${{ failure() }}
+          uses: appleboy/telegram-action@master
+          with:
+            to: ${{ secrets.TELEGRAM_GROUP_ID }}
+            token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+            format: HTML
+            message: |
+              💻 LetsCode.io: <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
+              💩 Deployment has been failed
