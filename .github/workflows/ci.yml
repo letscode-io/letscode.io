@@ -32,14 +32,14 @@ jobs:
           format: HTML
           message: |
             <b>LetsCode.io:</b> <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
-            Deployment has been finished successfully ✅
-        - name: Notify telegram group about a failed deployment
-          if: ${{ failure() }}
-          uses: appleboy/telegram-action@master
-          with:
-            to: ${{ secrets.TELEGRAM_GROUP_ID }}
-            token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-            format: HTML
-            message: |
-              <b>LetsCode.io:</b> <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
-              Deployment has been failed 💩
+            ✅ Deployment has been finished successfully
+      - name: Notify telegram group about a failed deployment
+        if: ${{ failure() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_GROUP_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          format: HTML
+          message: |
+            <b>LetsCode.io:</b> <a href="https://github.com/letscode-io/letscode.io/commit/${{ github.sha }}">Deployment #${{github.run_id}}</a>
+            💩 Deployment has been failed
