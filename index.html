@@ -3,26 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Let's Code</title>
+  <meta name="description" content="Let's Code team. Our projectsL eye2eye.fun, twitch channel letscode_io">
   <link rel="shortcut icon" href="/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./normalize.css">
+  <link rel="stylesheet" href="./mobile-styles.css">
+  <link rel="stylesheet" href="./styles.css" media="screen and (min-width: 768px)">
 </head>
 <body>
   <main class="main">
     <header class="header">
-      <img src="./images/logo.svg" class="logo"/> <h1 class="headline">Let's Code</h1>
+      <img src="./images/logo.svg" class="logo" alt="Let's Code Logo"/>
+      <h1 class="headline">Let's Code</h1>
     </header>
-    <h2>Projects</h2>
-    <section class="projects">
-      <h3>eye2eye.fun</h3>
-      <h3>Twitch `Let's Code`</h3>
+    <section class="section">
+      <h2 class="section-headline">Projects</h2>
+      <div class="section-item">
+        <h3 class="section-sub-headline">eye2eye.fun</h3>
+        <p class="description">Choose your ideal world</p>
+        <a href="https://eye2eye.fun/">eye2eye.fun</a>
+      </div>
+      <div class="section-item">
+        <h3 class="section-sub-headline">Twitch `Let's Code`</h3>
+        <p class="description">Sometimes we stream coding stuff.</p>
+        <a href="https://www.twitch.tv/letscode_io">letscode_io</a>
+      </div>
     </section>
-    <h2>Team</h2>
-    <section class="team">
-      <h3>Marat</h3>
-      github.com/esender
-      <h3>Emil</h3>
-      github.com/vaihtovirta
+    <section class="section">
+      <h2 class="section-headline">Team</h2>
+      <div class="section-item">
+        <h3 class="section-sub-headline">Marat</h3>
+        <a href="https://github.com/esender">github.com/esender</a>
+      </div>
+      <div class="section-item">
+        <h3 class="section-sub-headline">Emil</h3>
+        <a href="https://github.com/vaihtovirta">github.com/vaihtovirta</a>
+      </div>
     </section>
   </main>
 </body>
